@@ -2,9 +2,7 @@
   <div class="PostDetails">
     <div v-if="!post">Loading...</div>
     <template v-else>
-      <h2>
-        {{ post.title }} #{{ postId }}
-      </h2>
+      <h2>{{ header }}</h2>
 
       <section class="PostDetails__post">
         <p v-html="post.body"></p>
@@ -38,7 +36,7 @@
 
       <section>
         <div class="PostDetails__form-wrapper">
-          <!--        <NewCommentForm />-->
+          <new-comment-form></new-comment-form>
         </div>
       </section>
     </template>
@@ -47,9 +45,13 @@
 
 <script>
 import { getPost } from '@/api/posts';
+import NewCommentForm from '@/components/NewCommentForm.vue';
 
 export default {
   name: 'PostDetails',
+  components: {
+    NewCommentForm,
+  },
   data() {
     return {
       post: null,
@@ -61,6 +63,11 @@ export default {
   watch: {
     async postId() {
       this.post = await getPost(this.postId);
+    },
+  },
+  computed: {
+    header() {
+      return `${this.post.title} #${this.postId}`;
     },
   },
 };
