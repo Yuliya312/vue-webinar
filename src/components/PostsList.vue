@@ -17,8 +17,18 @@
           type="button"
           class="PostsList__button button"
           @click="openPost(post.id)"
+          v-if="post.id !== selectedPostId"
         >
-          Close/Open
+          Open
+        </button>
+
+        <button
+            type="button"
+            class="PostsList__button button"
+            @click="openPost(0)"
+            v-if="post.id === selectedPostId"
+        >
+          CLose
         </button>
       </li>
     </ul>
@@ -35,6 +45,7 @@ export default {
   },
   props: {
     posts: Array,
+    selectedPostId: Number,
   },
   methods: {
     openPost(postId) {

@@ -24,14 +24,13 @@
       <div class="App__sidebar">
         <posts-list
           :posts="posts"
+          :selected-post-id="postId"
           @postSelected="setPostId"
         ></posts-list>
       </div>
 
-      <div class="App__content">
-        <post-details
-          :post-id="postId"
-        ></post-details>
+      <div class="App__content" v-show="postId">
+        <post-details :post-id="postId"></post-details>
       </div>
     </main>
   </div>

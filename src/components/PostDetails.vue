@@ -1,50 +1,67 @@
 <template>
   <div class="PostDetails">
-    <h2>Post {{ postId }} details:</h2>
+    <div v-if="!post">Loading...</div>
+    <template v-else>
+      <h2>
+        {{ post.title }} #{{ postId }}
+      </h2>
 
-    <section class="PostDetails__post">
-      <p>sunt aut facere repellat provident occaecati excepturi optio</p>
-    </section>
+      <section class="PostDetails__post">
+        <p v-html="post.body"></p>
+      </section>
 
-    <section class="PostDetails__comments">
-      <button type="button" class="button">Hide 2 comments</button>
+      <section class="PostDetails__comments">
+        <button type="button" class="button">Hide 2 comments</button>
 
-      <ul class="PostDetails__list">
-        <li class="PostDetails__list-item">
-          <button
-              type="button"
-              class="PostDetails__remove-button button"
-          >
-            X
-          </button>
-          <p>My first comment</p>
-        </li>
+        <ul class="PostDetails__list">
+          <li class="PostDetails__list-item">
+            <button
+                type="button"
+                class="PostDetails__remove-button button"
+            >
+              X
+            </button>
+            <p>My first comment</p>
+          </li>
 
-        <li class="PostDetails__list-item">
-          <button
-              type="button"
-              class="PostDetails__remove-button button"
-          >
-            X
-          </button>
-          <p>sad sds dfsadf asdf asdf</p>
-        </li>
-      </ul>
-    </section>
+          <li class="PostDetails__list-item">
+            <button
+                type="button"
+                class="PostDetails__remove-button button"
+            >
+              X
+            </button>
+            <p>sad sds dfsadf asdf asdf</p>
+          </li>
+        </ul>
+      </section>
 
-    <section>
-      <div class="PostDetails__form-wrapper">
-<!--        <NewCommentForm />-->
-      </div>
-    </section>
+      <section>
+        <div class="PostDetails__form-wrapper">
+          <!--        <NewCommentForm />-->
+        </div>
+      </section>
+    </template>
   </div>
 </template>
 
 <script>
+import { getPost } from '@/api/posts';
+
 export default {
   name: 'PostDetails',
+  data() {
+    return {
+      post: null,
+    };
+  },
   props: {
     postId: Number,
+  },
+  watch: {
+    async postId() {
+      this.post = await getPost(this.postId);
+    },
   },
 };
 </script>
