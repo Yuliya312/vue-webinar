@@ -12,9 +12,11 @@
           <b>[User #{{ post.id }}]: </b>
           {{ post.title }}
         </div>
+
         <button
           type="button"
           class="PostsList__button button"
+          @click="openPost(post.id)"
         >
           Close/Open
         </button>
@@ -26,8 +28,18 @@
 <script>
 export default {
   name: 'PostsList',
+  data() {
+    return {
+      postId: 0,
+    };
+  },
   props: {
     posts: Array,
+  },
+  methods: {
+    openPost(postId) {
+      this.$emit('postSelected', postId);
+    },
   },
 };
 </script>

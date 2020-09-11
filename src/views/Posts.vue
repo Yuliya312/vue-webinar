@@ -22,11 +22,16 @@
 
     <main class="App__main">
       <div class="App__sidebar">
-        <posts-list :posts="posts"></posts-list>
+        <posts-list
+          :posts="posts"
+          @postSelected="setPostId"
+        ></posts-list>
       </div>
 
       <div class="App__content">
-        <post-details></post-details>
+        <post-details
+          :post-id="postId"
+        ></post-details>
       </div>
     </main>
   </div>
@@ -40,6 +45,7 @@ export default {
   data() {
     return {
       posts: [],
+      postId: 0,
     };
   },
   components: {
@@ -48,6 +54,11 @@ export default {
   },
   async mounted() {
     this.posts = await getPosts();
+  },
+  methods: {
+    setPostId(postId) {
+      this.postId = postId;
+    },
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="PostDetails">
-    <h2>Post details:</h2>
+    <h2>Post {{ postId }} details:</h2>
 
     <section class="PostDetails__post">
       <p>sunt aut facere repellat provident occaecati excepturi optio</p>
@@ -34,7 +34,7 @@
 
     <section>
       <div class="PostDetails__form-wrapper">
-        <NewCommentForm />
+<!--        <NewCommentForm />-->
       </div>
     </section>
   </div>
@@ -43,6 +43,9 @@
 <script>
 export default {
   name: 'PostDetails',
+  props: {
+    postId: Number,
+  },
 };
 </script>
 
